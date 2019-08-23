@@ -1,20 +1,164 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container" *ngIf="login">
+  <mat-toolbar color="primary" class="mb-4">
+      <mat-toolbar-row>
+        <span>Carga Inicial</span>
+      </mat-toolbar-row>
+  </mat-toolbar>
 
+  <div class="row">
+    <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <mat-select required>
+          <mat-option value="opportunity">Oportunidad</mat-option>
+          <mat-option value="lead">Prospecto</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput placeholder="Vendedor" [value]="vendedor" required>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+      <mat-form-field>
+          <mat-label>Equipo de Ventas</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let equipo of equipos" [value]="equipo.value">
+              {{equipo.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-label>Grupo</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let grupo of grupos" [value]="grupo.value">
+              {{grupo.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Nombre de la Oportunidad" value="" required>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+      <mat-form-field>
+          <mat-label>Campaña</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let campana of campanas" [value]="campana.value">
+              {{campana.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-label>Medio</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let medio of medios" [value]="medio.value">
+              {{medio.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-label>Origen</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let origen of origenes" [value]="origen.value">
+              {{origen.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+  </div>
+
+  <div class="row">
+      <mat-form-field>
+          <input matInput placeholder="Nombre del Contacto" value="" required>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Email" value="" required>
+      </mat-form-field>
+  </div>
+
+  <div class="row">
+      <mat-form-field>
+          <input matInput placeholder="Celular" value="" required>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Teléfono" value="" required>
+      </mat-form-field>
+  </div>
+
+  <div class="row">
+      <mat-form-field>
+          <mat-label>Tipo de Oportunidad</mat-label>
+          <mat-select required>
+            <mat-option value="unifamiliar">Unifamiliar</mat-option>
+            <mat-option value="multifamiliar">Multifamiliar</mat-option>
+          </mat-select>
+      </mat-form-field>
+  </div>
+
+  <div class="row mt-4">
+      <div class="col-4">
+        <h6>Volumen de obra</h6>
+        <p><mat-checkbox>-50 Departamentos</mat-checkbox></p>
+        <p><mat-checkbox>+50 Departamentos</mat-checkbox></p>
+      </div>
+      <div class="col-4">
+        <h6>Gama</h6>
+        <p><mat-checkbox>Gama Alta</mat-checkbox></p>
+        <p><mat-checkbox>Gama Baja</mat-checkbox></p>
+        <p><mat-checkbox>Gama Media</mat-checkbox></p>
+        <p><mat-checkbox>Premium</mat-checkbox></p>
+      </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-4">
+      <h6>Estado de la obra</h6>
+      <p><mat-checkbox>Cerramiento</mat-checkbox></p>
+      <p><mat-checkbox>Cimiento</mat-checkbox></p>
+      <p><mat-checkbox>Construcción</mat-checkbox></p>
+      <p><mat-checkbox>Mampostería</mat-checkbox></p>
+      <p><mat-checkbox>No Iniciada</mat-checkbox></p>
+      <p><mat-checkbox>Remodelación</mat-checkbox></p>
+    </div>
+    <div class="col-4">
+      <h6>Tipo de ambiente</h6>
+      <p><mat-checkbox>Cocinas</mat-checkbox></p>
+      <p><mat-checkbox>Estar</mat-checkbox></p>
+      <p><mat-checkbox>Lavadero</mat-checkbox></p>
+      <p><mat-checkbox>Placares</mat-checkbox></p>
+      <p><mat-checkbox>Vanitory</mat-checkbox></p>
+      <p><mat-checkbox>Vestidor</mat-checkbox></p>
+    </div>
+    <div class="col-4">
+      <h6>Material</h6>
+      <p><mat-checkbox>Madera</mat-checkbox></p>
+      <p><mat-checkbox>Malemina</mat-checkbox></p>
+      <p><mat-checkbox>Polimero</mat-checkbox></p>
+      <p><mat-checkbox>Vidrio</mat-checkbox></p>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+      <mat-form-field class="example-full-width">
+          <textarea matInput placeholder="Notas"></textarea>
+      </mat-form-field>
+  </div>
+
+  <div class="row mt-4 mb-4">
+      <button class="send-button" mat-raised-button color="primary">Enviar</button>
+  </div>
+</div>
+
+<div *ngIf="!login">
+      <mat-spinner style="margin:10px auto;"></mat-spinner>
+      <div *ngIf="alert != ''" class="alert alert-danger" role="alert">{{alert}}</div>
+</div>

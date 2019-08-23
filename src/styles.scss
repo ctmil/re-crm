@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+/* Imports */
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+
+/* Vars */
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+html, body { height: 100%; }
+body { background:#ddd;margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
