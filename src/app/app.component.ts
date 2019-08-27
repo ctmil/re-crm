@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 declare var jquery: any;
 declare var $: any;
 
@@ -16,6 +16,21 @@ export class AppComponent implements OnInit {
   title = 're-crm';
 
   vendedor = '';
+  @ViewChild('name', {static: false}) name: any;
+  @ViewChild('notes', {static: false}) notes: any;
+  @ViewChild('contact', {static: false}) contact: any;
+  @ViewChild('email', {static: false}) email: any;
+  @ViewChild('mobile', {static: false}) mobile: any;
+  @ViewChild('phone', {static: false}) phone: any;
+
+  type = '';
+  typeOpp = '';
+  campan = '';
+  media = '';
+  origin = '';
+  team = '';
+  group = '';
+
   login = false;
   alert = '';
 
@@ -49,6 +64,7 @@ export class AppComponent implements OnInit {
         console.log(response + ' - ' + status);
         if (response[0] !== false) {
           console.log(response[0]);
+          this.uid = response[0];
           this.getData('http://157.230.61.194:8070/xmlrpc', db, pass, response[0]);
         } else {
           console.log('Err');
@@ -58,6 +74,7 @@ export class AppComponent implements OnInit {
       },
       error: (jqXHR: any, status: any, error: any) => {
         console.log('Err: ' + jqXHR + ' - ' + status + '-' + error);
+        console.log(jqXHR);
         this.login = false;
         this.alert = 'No está autorizado para acceder. Consulte al administrador.';
       }
@@ -184,8 +201,27 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public writeCrm(server: string, db: string, pass: string, uid: number): void {
+  public writeCrm(server: string, db: string, pass: string): void {
 
+  }
+
+  /* SENDER */
+
+  public send(): void {
+    console.log('- - - - - - Writting - - - - - -');
+    console.log('Tipo: ' + this.type);
+    console.log('Equipo: ' + this.team);
+    console.log('Grupo: ' + this.group);
+    console.log('Nombre: ' + this.name);
+    console.log('Campaña: ' + this.campan);
+    console.log('Medio: ' + this.media);
+    console.log('Origen: ' + this.origin);
+    console.log('Nombre de Contacto: ' + this.contact);
+    console.log('Email: ' + this.email);
+    console.log('Celular: ' + this.mobile);
+    console.log('Tel: ' + this.phone);
+    console.log('Tipo de Oportunidad: ' + this.typeOpp);
+    console.log('Notas: ' + this.notes.nativeElement.value);
   }
 
   /* Tools */
