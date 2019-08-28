@@ -44,6 +44,8 @@ export class AppComponent implements OnInit {
   medios: Select[] = [];
   origenes: Select[] = [];
 
+  tags = [];
+
   constructor() {}
 
   public ngOnInit(): void {
@@ -203,6 +205,19 @@ export class AppComponent implements OnInit {
         console.log('Error: ', error);
       }
     });
+
+    $.xmlrpc({
+      url: server + '/2/object',
+      methodName: 'execute_kw',
+      crossDomain: true,
+      params: [db, uid, pass, 'crm.lead.tag', 'search_read', [ [] ], {fields: ['name', 'id']}],
+      success: (response: any, status: any, jqXHR: any) => {
+        this.tags = response;
+      },
+      error: (jqXHR: any, status: any, error: any) => {
+        console.log('Error: ', error);
+      }
+    });
   }
 
   public writeCrm(server: string, db: string, pass: string): void {
@@ -210,7 +225,21 @@ export class AppComponent implements OnInit {
       url: server + '/2/object',
       methodName: 'execute_kw',
       crossDomain: true,
-      params: [db, this.uid, pass, 'crm.lead', 'create', [[], {}]],
+      params: [db, this.uid, pass, 'crm.lead', 'create', [{
+        type: this.type,
+        name: this.name.nativeElement.value,
+        contact_name: this.contact.nativeElement.value,
+        email_from: this.email.nativeElement.value,
+        mobile: this.mobile.nativeElement.value,
+        phone: this.phone.nativeElement.value,
+        description: this.notes.nativeElement.value,
+        team_id: this.team,
+        group_id: this.group,
+        lead_category: this.typeOpp,
+        campaign_id: this.campan,
+        medium_id: this.media,
+        source_id: this.origin
+      }]],
       success: (response: any, status: any, jqXHR: any) => {
         console.log(response);
       },
@@ -237,6 +266,13 @@ export class AppComponent implements OnInit {
     console.log('Tel: ' + this.phone.nativeElement.value);
     console.log('Tipo de Oportunidad: ' + this.typeOpp);
     console.log('Notas: ' + this.notes.nativeElement.value);
+
+    /*this.writeCrm(this.serverUrl,
+    this.getUrlParameter('db'),
+    this.getUrlParameter('pass'));*/
+
+    console.log(this.tags[0]);
+    console.log(this.findWithAttr(this.tags[0], 'name', '+50 Departamentos'));
   }
 
   /* Tools */
@@ -254,5 +290,14 @@ export class AppComponent implements OnInit {
             return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
         }
     }
+  }
+
+  public findWithAttr(array: any, attr: any, value: any) {
+    for (let i = 0; i < array.length; i += 1) {
+        if (array[i][attr] === value) {
+            return i;
+        }
+    }
+    return -1;
   }
 }

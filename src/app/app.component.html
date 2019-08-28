@@ -8,7 +8,7 @@
   <div class="row">
     <mat-form-field>
         <mat-label>Tipo</mat-label>
-        <mat-select required>
+        <mat-select required [(value)]="type">
           <mat-option value="opportunity">Oportunidad</mat-option>
           <mat-option value="lead">Prospecto</mat-option>
         </mat-select>
@@ -22,7 +22,7 @@
   <div class="row">
       <mat-form-field>
           <mat-label>Equipo de Ventas</mat-label>
-          <mat-select required>
+          <mat-select required [(value)]="team">
             <mat-option *ngFor="let equipo of equipos" [value]="equipo.value">
               {{equipo.viewValue}}
             </mat-option>
@@ -31,7 +31,7 @@
 
       <mat-form-field>
           <mat-label>Grupo</mat-label>
-          <mat-select required>
+          <mat-select required [(value)]="group">
             <mat-option *ngFor="let grupo of grupos" [value]="grupo.value">
               {{grupo.viewValue}}
             </mat-option>
@@ -41,14 +41,14 @@
 
   <div class="row">
     <mat-form-field class="example-full-width">
-        <input matInput placeholder="Nombre de la Oportunidad" value="" required>
+        <input matInput placeholder="Nombre de la Oportunidad" #name value="" required>
     </mat-form-field>
   </div>
 
   <div class="row">
       <mat-form-field>
           <mat-label>Campaña</mat-label>
-          <mat-select required>
+          <mat-select required [(value)]="campan">
             <mat-option *ngFor="let campana of campanas" [value]="campana.value">
               {{campana.viewValue}}
             </mat-option>
@@ -57,7 +57,7 @@
 
       <mat-form-field>
           <mat-label>Medio</mat-label>
-          <mat-select required>
+          <mat-select required [(value)]="media">
             <mat-option *ngFor="let medio of medios" [value]="medio.value">
               {{medio.viewValue}}
             </mat-option>
@@ -66,7 +66,7 @@
 
       <mat-form-field>
           <mat-label>Origen</mat-label>
-          <mat-select required>
+          <mat-select required [(value)]="origin">
             <mat-option *ngFor="let origen of origenes" [value]="origen.value">
               {{origen.viewValue}}
             </mat-option>
@@ -76,28 +76,28 @@
 
   <div class="row">
       <mat-form-field>
-          <input matInput placeholder="Nombre del Contacto" value="" required>
+          <input matInput placeholder="Nombre del Contacto" #contact value="" required>
       </mat-form-field>
 
       <mat-form-field>
-          <input matInput placeholder="Email" value="" required>
+          <input matInput placeholder="Email" #email value="" required>
       </mat-form-field>
   </div>
 
   <div class="row">
       <mat-form-field>
-          <input matInput placeholder="Celular" value="" required>
+          <input matInput placeholder="Celular" #mobile value="" required>
       </mat-form-field>
 
       <mat-form-field>
-          <input matInput placeholder="Teléfono" value="" required>
+          <input matInput placeholder="Teléfono" #phone value="" required>
       </mat-form-field>
   </div>
 
   <div class="row">
       <mat-form-field>
           <mat-label>Tipo de Oportunidad</mat-label>
-          <mat-select required>
+          <mat-select required [(value)]="typeOpp">
             <mat-option value="unifamiliar">Unifamiliar</mat-option>
             <mat-option value="multifamiliar">Multifamiliar</mat-option>
           </mat-select>
@@ -149,12 +149,12 @@
 
   <div class="row mt-4">
       <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Notas"></textarea>
+          <textarea matInput placeholder="Notas" #notes></textarea>
       </mat-form-field>
   </div>
 
   <div class="row mt-4 mb-4">
-      <button class="send-button" mat-raised-button color="primary">Enviar</button>
+      <button class="send-button" mat-raised-button color="primary" (click)="send();">Enviar</button>
   </div>
 </div>
 
