@@ -1,3 +1,4 @@
+/* Re-CRM-APP */
 import { Component, OnInit, ViewChild } from '@angular/core';
 declare var jquery: any;
 declare var $: any;
