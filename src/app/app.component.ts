@@ -15,6 +15,9 @@ export interface Select {
 export class AppComponent implements OnInit {
   title = 're-crm';
 
+  uid = 0;
+  serverUrl = 'http://157.230.61.194:8070/xmlrpc';
+
   vendedor = '';
   @ViewChild('name', {static: false}) name: any;
   @ViewChild('notes', {static: false}) notes: any;
@@ -43,7 +46,7 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   public ngOnInit(): void {
-    this.odooConnect('http://157.230.61.194:8070/xmlrpc',
+    this.odooConnect(this.serverUrl,
     this.getUrlParameter('db'),
     this.getUrlParameter('user'),
     this.getUrlParameter('pass'));
@@ -65,7 +68,7 @@ export class AppComponent implements OnInit {
         if (response[0] !== false) {
           console.log(response[0]);
           this.uid = response[0];
-          this.getData('http://157.230.61.194:8070/xmlrpc', db, pass, response[0]);
+          this.getData(this.serverUrl, db, pass, response[0]);
         } else {
           console.log('Err');
           this.login = false;
@@ -196,13 +199,24 @@ export class AppComponent implements OnInit {
         }
       },
       error: (jqXHR: any, status: any, error: any) => {
-        console.log('Error : ' + error );
+        console.log('Error: ', error);
       }
     });
   }
 
   public writeCrm(server: string, db: string, pass: string): void {
-
+    $.xmlrpc({
+      url: server + '/2/object',
+      methodName: 'execute_kw',
+      crossDomain: true,
+      params: [db, this.uid, pass, 'crm.lead', 'create', [[], {}]],
+      success: (response: any, status: any, jqXHR: any) => {
+        console.log(response);
+      },
+      error: (jqXHR: any, status: any, error: any) => {
+        console.log('Error : ' + error );
+      }
+    });
   }
 
   /* SENDER */
@@ -212,14 +226,14 @@ export class AppComponent implements OnInit {
     console.log('Tipo: ' + this.type);
     console.log('Equipo: ' + this.team);
     console.log('Grupo: ' + this.group);
-    console.log('Nombre: ' + this.name);
+    console.log('Nombre: ' + this.name.nativeElement.value);
     console.log('Campaña: ' + this.campan);
     console.log('Medio: ' + this.media);
     console.log('Origen: ' + this.origin);
-    console.log('Nombre de Contacto: ' + this.contact);
-    console.log('Email: ' + this.email);
-    console.log('Celular: ' + this.mobile);
-    console.log('Tel: ' + this.phone);
+    console.log('Nombre de Contacto: ' + this.contact.nativeElement.value);
+    console.log('Email: ' + this.email.nativeElement.value);
+    console.log('Celular: ' + this.mobile.nativeElement.value);
+    console.log('Tel: ' + this.phone.nativeElement.value);
     console.log('Tipo de Oportunidad: ' + this.typeOpp);
     console.log('Notas: ' + this.notes.nativeElement.value);
   }
@@ -229,8 +243,8 @@ export class AppComponent implements OnInit {
   public getUrlParameter(sParam: any): any {
     const sPageURL = window.location.search.substring(1);
     const sURLVariables = sPageURL.split('&');
-    let sParameterName;
-    let i;
+    let sParameterName: any;
+    let i: number;
 
     for (i = 0; i < sURLVariables.length; i++) {
         sParameterName = sURLVariables[i].split('=');
