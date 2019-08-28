@@ -45,6 +45,29 @@ export class AppComponent implements OnInit {
   origenes: Select[] = [];
 
   tags = [];
+  tagsList = [];
+  depLess50 = false;
+  depMore50 = false;
+  gAlta = false;
+  gBaja = false;
+  gMedia = false;
+  premium = false;
+  cerramiento = false;
+  cimiento = false;
+  construccion = false;
+  mamposteria = false;
+  noIniciada = false;
+  remodelacion = false;
+  cocinas = false;
+  estar = false;
+  lavadero = false;
+  placares = false;
+  vanitory = false;
+  vestidor = false;
+  madera = false;
+  melamina = false;
+  polimero = false;
+  vidrio = false;
 
   constructor() {}
 
@@ -212,7 +235,8 @@ export class AppComponent implements OnInit {
       crossDomain: true,
       params: [db, uid, pass, 'crm.lead.tag', 'search_read', [ [] ], {fields: ['name', 'id']}],
       success: (response: any, status: any, jqXHR: any) => {
-        this.tags = response;
+        console.log(response);
+        this.tags = response[0];
       },
       error: (jqXHR: any, status: any, error: any) => {
         console.log('Error: ', error);
@@ -238,7 +262,8 @@ export class AppComponent implements OnInit {
         lead_category: this.typeOpp,
         campaign_id: this.campan,
         medium_id: this.media,
-        source_id: this.origin
+        source_id: this.origin,
+        tag_ids: [[6, 0, this.tagsList]]
       }]],
       success: (response: any, status: any, jqXHR: any) => {
         console.log(response);
@@ -267,12 +292,32 @@ export class AppComponent implements OnInit {
     console.log('Tipo de Oportunidad: ' + this.typeOpp);
     console.log('Notas: ' + this.notes.nativeElement.value);
 
-    /*this.writeCrm(this.serverUrl,
-    this.getUrlParameter('db'),
-    this.getUrlParameter('pass'));*/
+    if (this.depLess50) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', '-50 Departamentos')].id); }
+    if (this.depMore50) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', '+50 Departamentos')].id); }
+    if (this.gAlta) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Gama Alta')].id); }
+    if (this.gBaja) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Gama Baja')].id); }
+    if (this.gMedia) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Gama Media')].id); }
+    if (this.premium) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Premium')].id); }
+    if (this.cerramiento) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Cerramiento')].id); }
+    if (this.cimiento) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Cimiento')].id); }
+    if (this.construccion) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Construccion')].id); }
+    if (this.mamposteria) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Mamposteria')].id); }
+    if (this.noIniciada) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'No Iniciada')].id); }
+    if (this.remodelacion) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Remodelacion')].id); }
+    if (this.cocinas) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Cocinas')].id); }
+    if (this.estar) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Estar')].id); }
+    if (this.lavadero) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Lavadero')].id); }
+    if (this.placares) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Placares')].id); }
+    if (this.vanitory) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Vanitory')].id); }
+    if (this.vestidor) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Vestidor')].id); }
+    if (this.madera) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Madera')].id); }
+    if (this.melamina) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Melamina')].id); }
+    if (this.polimero) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Polimero')].id); }
+    if (this.vidrio) {this.tagsList.push(this.tags[this.findWithAttr(this.tags, 'name', 'Vidrio')].id); }
 
-    console.log(this.tags[0]);
-    console.log(this.findWithAttr(this.tags[0], 'name', '+50 Departamentos'));
+    this.writeCrm(this.serverUrl,
+    this.getUrlParameter('db'),
+    this.getUrlParameter('pass'));
   }
 
   /* Tools */

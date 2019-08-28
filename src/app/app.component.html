@@ -107,43 +107,43 @@
   <div class="row mt-4">
       <div class="col-4">
         <h6>Volumen de obra</h6>
-        <p><mat-checkbox>-50 Departamentos</mat-checkbox></p>
-        <p><mat-checkbox>+50 Departamentos</mat-checkbox></p>
+        <p><mat-checkbox [(ngModel)]="depLess50">-50 Departamentos</mat-checkbox></p>
+        <p><mat-checkbox [(ngModel)]="depMore50">+50 Departamentos</mat-checkbox></p>
       </div>
       <div class="col-4">
         <h6>Gama</h6>
-        <p><mat-checkbox>Gama Alta</mat-checkbox></p>
-        <p><mat-checkbox>Gama Baja</mat-checkbox></p>
-        <p><mat-checkbox>Gama Media</mat-checkbox></p>
-        <p><mat-checkbox>Premium</mat-checkbox></p>
+        <p><mat-checkbox [(ngModel)]="gAlta">Gama Alta</mat-checkbox></p>
+        <p><mat-checkbox [(ngModel)]="gBaja">Gama Baja</mat-checkbox></p>
+        <p><mat-checkbox [(ngModel)]="gMedia">Gama Media</mat-checkbox></p>
+        <p><mat-checkbox [(ngModel)]="premium">Premium</mat-checkbox></p>
       </div>
   </div>
 
   <div class="row mt-4">
     <div class="col-4">
       <h6>Estado de la obra</h6>
-      <p><mat-checkbox>Cerramiento</mat-checkbox></p>
-      <p><mat-checkbox>Cimiento</mat-checkbox></p>
-      <p><mat-checkbox>Construcción</mat-checkbox></p>
-      <p><mat-checkbox>Mampostería</mat-checkbox></p>
-      <p><mat-checkbox>No Iniciada</mat-checkbox></p>
-      <p><mat-checkbox>Remodelación</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="cerramiento">Cerramiento</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="cimiento">Cimiento</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="construccion">Construcción</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="mamposteria">Mampostería</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="noIniciada">No Iniciada</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="remodelacion">Remodelación</mat-checkbox></p>
     </div>
     <div class="col-4">
       <h6>Tipo de ambiente</h6>
-      <p><mat-checkbox>Cocinas</mat-checkbox></p>
-      <p><mat-checkbox>Estar</mat-checkbox></p>
-      <p><mat-checkbox>Lavadero</mat-checkbox></p>
-      <p><mat-checkbox>Placares</mat-checkbox></p>
-      <p><mat-checkbox>Vanitory</mat-checkbox></p>
-      <p><mat-checkbox>Vestidor</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="cocinas">Cocinas</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="estar">Estar</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="lavadero">Lavadero</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="placares">Placares</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="vanitory">Vanitory</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="vestidor">Vestidor</mat-checkbox></p>
     </div>
     <div class="col-4">
       <h6>Material</h6>
-      <p><mat-checkbox>Madera</mat-checkbox></p>
-      <p><mat-checkbox>Malemina</mat-checkbox></p>
-      <p><mat-checkbox>Polimero</mat-checkbox></p>
-      <p><mat-checkbox>Vidrio</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="madera">Madera</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="melamina">Melamina</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="polimero">Polimero</mat-checkbox></p>
+      <p><mat-checkbox [(ngModel)]="vidrio">Vidrio</mat-checkbox></p>
     </div>
   </div>
 
