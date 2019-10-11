@@ -1,4 +1,4 @@
-<div class="container" *ngIf="login">
+<div class="container" *ngIf="login && !success">
   <mat-toolbar color="primary" class="mb-4">
       <mat-toolbar-row>
         <span>Carga Inicial</span>
@@ -161,4 +161,8 @@
 <div *ngIf="!login">
       <mat-spinner style="margin:10px auto;"></mat-spinner>
       <div *ngIf="alert != ''" class="alert alert-danger" role="alert">{{alert}}</div>
+</div>
+
+<div *ngIf="success">
+    <div class="alert alert-success" role="alert">Carga Inicial enviada con Éxito</div>
 </div>
