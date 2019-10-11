@@ -132,6 +132,9 @@ export class AppComponent implements OnInit {
             if (uresponse[0][0]) {
               this.vendedor = uresponse[0][0].name;
               this.op_id = uresponse[0][0].default_operating_unit_id[0];
+              /*for (let i = 0; i < uresponse[0][0].operating_unit_ids.length; i++) {
+                this.grupos.push( {value: response[0][i].id, viewValue: response[0][i].name} );
+              }*/
               this.login = true;
             } else {
               this.login = false;
@@ -139,16 +142,29 @@ export class AppComponent implements OnInit {
             }
 
             for (let i = 0; i <= uresponse[0][0].operating_unit_ids.length; i++) {
-              console.log(uresponse[0][0].operating_unit_ids[i]);
               $.xmlrpc({
                 url: server + '/2/object',
                 methodName: 'execute_kw',
                 crossDomain: true,
                 params: [db, uid, pass, 'crm.team', 'search_read', [ [['operating_unit_id', '=', uresponse[0][0].operating_unit_ids[i]]] ], {fields: ['name', 'id']}],
                 success: (response: any, status: any, jqXHR: any) => {
-                  console.log(response);
                   for (let i = 0; i < response[0].length; i++) {
                     this.equipos.push( {value: response[0][i].id, viewValue: response[0][i].name} );
+                  }
+                },
+                error: (jqXHR: any, status: any, error: any) => {
+                  console.log('Error : ' + error );
+                }
+              });
+
+              $.xmlrpc({
+                url: server + '/2/object',
+                methodName: 'execute_kw',
+                crossDomain: true,
+                params: [db, uid, pass, 'operating.unit', 'search_read', [ [['id', '=', uresponse[0][0].operating_unit_ids[i]]] ], {fields: ['name', 'id']}],
+                success: (response: any, status: any, jqXHR: any) => {
+                  if (response[0][0]) {
+                    this.grupos.push( {value: response[0][0].id, viewValue: response[0][0].name} );
                   }
                 },
                 error: (jqXHR: any, status: any, error: any) => {
@@ -169,7 +185,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    $.xmlrpc({
+    /*$.xmlrpc({
       url: server + '/2/object',
       methodName: 'execute_kw',
       crossDomain: true,
@@ -183,7 +199,7 @@ export class AppComponent implements OnInit {
       error: (jqXHR: any, status: any, error: any) => {
         console.log('Error : ' + error );
       }
-    });
+    });*/
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -264,7 +280,7 @@ export class AppComponent implements OnInit {
         phone: this.phone.nativeElement.value,
         description: this.notes.nativeElement.value,
         team_id: this.team,
-        group_id: this.group,
+        operating_unit_id: this.group,
         lead_category: this.typeOpp,
         campaign_id: this.campan,
         medium_id: this.media,
