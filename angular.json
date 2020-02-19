@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -32,9 +32,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-		"node_modules/jquery/dist/jquery.min.js",
-		"node_modules/jquery-xmlrpc/jquery.xmlrpc.min.js"
-		]
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jquery-xmlrpc/jquery.xmlrpc.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -49,7 +49,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -58,6 +57,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -126,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "re-crm"
+  "defaultProject": "re-crm",
+  "cli": {
+    "analytics": "71b62c31-5b1b-4b5a-a301-5a702b274ca3"
+  }
 }

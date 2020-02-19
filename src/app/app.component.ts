@@ -22,12 +22,12 @@ export class AppComponent implements OnInit {
   serverUrl = 'http://157.230.61.194:28069/xmlrpc';
 
   vendedor = '';
-  @ViewChild('name', {static: false}) name: any;
-  @ViewChild('notes', {static: false}) notes: any;
-  @ViewChild('contact', {static: false}) contact: any;
-  @ViewChild('email', {static: false}) email: any;
-  @ViewChild('mobile', {static: false}) mobile: any;
-  @ViewChild('phone', {static: false}) phone: any;
+  @ViewChild('name') name: any;
+  @ViewChild('notes') notes: any;
+  @ViewChild('contact') contact: any;
+  @ViewChild('email') email: any;
+  @ViewChild('mobile') mobile: any;
+  @ViewChild('phone') phone: any;
 
   type = '';
   typeOpp = '';
