@@ -16,6 +16,8 @@ export interface Select {
 export class AppComponent implements OnInit {
   title = 're-crm';
 
+  writing = false;
+
   uid = 0;
   serverUrl = 'http://157.230.61.194:28069/xmlrpc';
 
@@ -300,6 +302,7 @@ export class AppComponent implements OnInit {
   /* SENDER */
 
   public send(): void {
+    this.writing = true;
     console.log('- - - - - - Writting - - - - - -');
     console.log('Tipo: ' + this.type);
     console.log('Equipo: ' + this.team);
