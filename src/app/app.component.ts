@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   writing = false;
 
   uid = 0;
-  serverUrl = 'http://157.230.61.194:28069/xmlrpc';
+  serverUrl = 'https://prod.renodirector.com/xmlrpc';
 
   vendedor = '';
   @ViewChild('name') name: any;
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   login = false;
   alert = '';
   success = false;
-  op_id = 0;
+  opId = 0;
 
   equipos: Select[] = [];
   grupos: Select[] = [];
@@ -128,12 +128,13 @@ export class AppComponent implements OnInit {
           url: server + '/2/object',
           methodName: 'execute_kw',
           crossDomain: true,
-          params: [db, uid, pass, 'res.users', 'read', [response[0]], {fields: ['franchise_id', 'default_operating_unit_id', 'operating_unit_ids', 'name']}],
+          params: [db, uid, pass, 'res.users', 'read', [response[0]],
+          {fields: ['franchise_id', 'default_operating_unit_id', 'operating_unit_ids', 'name']}],
           success: (uresponse: any, ustatus: any, ujqXHR: any) => {
             console.log('USER:', uresponse);
             if (uresponse[0][0]) {
               this.vendedor = uresponse[0][0].name;
-              this.op_id = uresponse[0][0].default_operating_unit_id[0];
+              this.opId = uresponse[0][0].default_operating_unit_id[0];
               /*for (let i = 0; i < uresponse[0][0].operating_unit_ids.length; i++) {
                 this.grupos.push( {value: response[0][i].id, viewValue: response[0][i].name} );
               }*/
@@ -148,7 +149,9 @@ export class AppComponent implements OnInit {
                 url: server + '/2/object',
                 methodName: 'execute_kw',
                 crossDomain: true,
-                params: [db, uid, pass, 'crm.team', 'search_read', [ [['operating_unit_id', '=', uresponse[0][0].operating_unit_ids[i]]] ], {fields: ['name', 'id']}],
+                params: [db, uid, pass, 'crm.team', 'search_read', [
+                  [['operating_unit_id', '=', uresponse[0][0].operating_unit_ids[i]]]
+                ], {fields: ['name', 'id']}],
                 success: (response: any, status: any, jqXHR: any) => {
                   for (let i = 0; i < response[0].length; i++) {
                     this.equipos.push( {value: response[0][i].id, viewValue: response[0][i].name} );
@@ -163,7 +166,9 @@ export class AppComponent implements OnInit {
                 url: server + '/2/object',
                 methodName: 'execute_kw',
                 crossDomain: true,
-                params: [db, uid, pass, 'operating.unit', 'search_read', [ [['id', '=', uresponse[0][0].operating_unit_ids[i]]] ], {fields: ['name', 'id']}],
+                params: [db, uid, pass, 'operating.unit', 'search_read', [
+                  [['id', '=', uresponse[0][0].operating_unit_ids[i]]]
+                ], {fields: ['name', 'id']}],
                 success: (response: any, status: any, jqXHR: any) => {
                   if (response[0][0]) {
                     this.grupos.push( {value: response[0][0].id, viewValue: response[0][0].name} );
@@ -344,6 +349,10 @@ export class AppComponent implements OnInit {
     this.writeCrm(this.serverUrl,
     this.getUrlParameter('db'),
     this.getUrlParameter('pass'));
+  }
+
+  reload(): void {
+    location.reload();
   }
 
   /* Tools */
