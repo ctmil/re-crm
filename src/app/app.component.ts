@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   writing = false;
 
   uid = 0;
-  serverUrl = 'https://prod.renodirector.com/xmlrpc';
+  serverUrl = '/xmlrpc';
 
   vendedor = '';
   @ViewChild('name') name: any;
@@ -264,7 +264,7 @@ export class AppComponent implements OnInit {
       crossDomain: true,
       params: [db, uid, pass, 'crm.lead.tag', 'search_read', [ [] ], {fields: ['name', 'id']}],
       success: (response: any, status: any, jqXHR: any) => {
-        console.log(response);
+        console.log('TAGS:', response);
         this.tags = response[0];
       },
       error: (jqXHR: any, status: any, error: any) => {
