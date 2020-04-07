@@ -1,5 +1,6 @@
 /* Re-CRM-APP */
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 declare var jquery: any;
 declare var $: any;
 
@@ -19,6 +20,7 @@ export class AppComponent implements OnInit {
   writing = false;
 
   uid = 0;
+  url = '';
   serverUrl = '/xmlrpc';
 
   vendedor = '';
@@ -73,7 +75,7 @@ export class AppComponent implements OnInit {
   polimero = false;
   vidrio = false;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   public ngOnInit(): void {
     this.odooConnect(this.serverUrl,
@@ -274,7 +276,29 @@ export class AppComponent implements OnInit {
   }
 
   public writeCrm(server: string, db: string, pass: string): void {
-    $.xmlrpc({
+    this.http.post<any>(this.url + '/recrm/create',
+    {params: {
+      type: this.type,
+      name: this.name.nativeElement.value,
+      contact_name: this.contact.nativeElement.value,
+      email_from: this.email.nativeElement.value,
+      mobile: this.mobile.nativeElement.value,
+      phone: this.phone.nativeElement.value,
+      description: this.notes.nativeElement.value,
+      team_id: this.team,
+      operating_unit_id: this.group,
+      lead_category: this.typeOpp,
+      campaign_id: this.campan,
+      medium_id: this.media,
+      source_id: this.origin,
+      user_id: this.uid,
+      tag_ids: this.tagsList
+    }}).subscribe(data => {
+      console.log(data);
+      this.success = true;
+    });
+
+    /*$.xmlrpc({
       url: server + '/2/object',
       methodName: 'execute_kw',
       crossDomain: true,
@@ -301,7 +325,7 @@ export class AppComponent implements OnInit {
       error: (jqXHR: any, status: any, error: any) => {
         console.log('Error : ' + error );
       }
-    });
+    });*/
   }
 
   /* SENDER */
